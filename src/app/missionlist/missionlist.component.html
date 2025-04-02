@@ -1,0 +1,56 @@
+<app-missionfilter (filtersChanged)="onFiltersChanged($event)"></app-missionfilter>
+
+<div class="missions-container" *ngIf="missions.length > 0">
+  <mat-grid-list cols="3" gutterSize="16px" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let mission of missions">
+      <div [routerLink]="['/mission', mission.flight_number]" style="cursor: pointer;">
+        <mat-card class="mission-card">
+          <img
+            mat-card-image
+            [src]="mission.links.mission_patch_small"
+            alt="Mission Patch"
+          />
+          <mat-card-title>{{ mission.mission_name }}</mat-card-title>
+          <mat-card-subtitle>
+            Flight #: {{ mission.flight_number }} | Year: {{ mission.launch_year }}
+          </mat-card-subtitle>
+
+          <mat-card-content>
+            <p>{{ mission.details || 'No additional mission info available.' }}</p>
+            <p>
+              <strong>Rocket:</strong>
+              {{ mission.rocket.rocket_name }} ({{ mission.rocket.rocket_type }})
+            </p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <a
+              mat-button
+              color="primary"
+              [href]="mission.links.article_link"
+              target="_blank"
+            >Read Article</a>
+            <a
+              mat-button
+              color="accent"
+              [href]="mission.links.wikipedia"
+              target="_blank"
+            >View Wiki</a>
+            <a
+              mat-button
+              color="warn"
+              [href]="mission.links.video_link"
+              target="_blank"
+            >Watch Video</a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- Show spinner or a message if no results -->
+<div *ngIf="missions.length === 0" class="empty-state">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <p>No missions match your filters. Try resetting them.</p>
+</div>

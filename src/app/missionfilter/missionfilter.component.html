@@ -1,0 +1,49 @@
+<h2>Mission List</h2>
+
+<mat-card class="filter-card">
+  <form class="filter-form" (ngSubmit)="onYearChange()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Launch Year</mat-label>
+      <input
+        matInput
+        [(ngModel)]="launchYear"
+        name="year"
+        placeholder="Type year like 2020"
+      />
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-flat-button color="primary" type="submit">Apply</button>
+      <button
+        mat-flat-button
+        color="warn"
+        type="button"
+        (click)="resetFilter()"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <div class="radio-group">
+    <h4>Launch Status</h4>
+    <mat-radio-group
+      [(ngModel)]="launchStatus"
+      name="launch"
+      (change)="onYearChange()"
+    >
+      <mat-radio-button value="success">Successful</mat-radio-button>
+      <mat-radio-button value="fail">Failed</mat-radio-button>
+    </mat-radio-group>
+
+    <h4>Landing Status</h4>
+    <mat-radio-group
+      [(ngModel)]="landingStatus"
+      name="landing"
+      (change)="onYearChange()"
+    >
+      <mat-radio-button value="success">Successful</mat-radio-button>
+      <mat-radio-button value="fail">Failed</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</mat-card>
